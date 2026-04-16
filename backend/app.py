@@ -35,7 +35,12 @@ def _get_allowed_origins() -> list[str]:
         origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
         if origins:
             return origins
-    return ["http://localhost:3000", "http://127.0.0.1:3000"]
+    # Default origins for development and production
+    return [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://blog-generator-roan.vercel.app",  # Vercel frontend
+    ]
 
 
 app = FastAPI(title="AI Blog Generator API", version="1.0.0")
