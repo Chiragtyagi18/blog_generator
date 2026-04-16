@@ -114,7 +114,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-blue-950 dark:to-indigo-950">
+    <div className="flex min-h-screen flex-col bg-linear-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-blue-950 dark:to-indigo-950">
       <Header />
       <main className="flex-1">
         <div className="mx-auto w-full max-w-5xl px-6 py-10 md:px-10">
@@ -160,7 +160,7 @@ export default function Home() {
 
               <button
                 type="submit"
-                className="h-fit self-end rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:shadow-xl hover:from-emerald-700 hover:to-emerald-800 disabled:cursor-not-allowed disabled:opacity-50 dark:from-emerald-500 dark:to-emerald-600"
+                className="h-fit self-end rounded-xl bg-linear-to-r from-emerald-600 to-emerald-700 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:shadow-xl hover:from-emerald-700 hover:to-emerald-800 disabled:cursor-not-allowed disabled:opacity-50 dark:from-emerald-500 dark:to-emerald-600"
                 disabled={isLoading}
               >
                 {isLoading ? (
