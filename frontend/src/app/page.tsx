@@ -30,7 +30,10 @@ const languageLabels: Record<FormLanguage, string> = {
   french: "French",
 };
 
-async function requestBlog(topic: string, language: FormLanguage): Promise<Blog> {
+async function requestBlog(
+  topic: string,
+  language: FormLanguage
+): Promise<Blog> {
   const payload: { topic: string; language?: TranslationLanguage } = {
     topic: topic.trim(),
   };
@@ -39,23 +42,30 @@ async function requestBlog(topic: string, language: FormLanguage): Promise<Blog>
     payload.language = language;
   }
 
-  const response = await fetch(`${API_BASE_URL}/blogs`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogs`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-  const body = (await response.json().catch(() => null)) as BlogResponse | null;
+    const body = (await response.json().catch(() => null)) as BlogResponse | null;
 
-  if (!response.ok) {
-    throw new Error(body?.detail ?? "Failed to generate blog");
+    if (!response.ok) {
+      throw new Error(body?.detail ?? "Failed to generate blog");
+    }
+
+    if (!body?.data?.blog?.title || !body.data.blog.content) {
+      throw new Error("Received an invalid response from the API");
+    }
+
+    return body.data.blog;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Network error. Please check your connection.");
   }
-
-  if (!body?.data?.blog?.title || !body.data.blog.content) {
-    throw new Error("Received an invalid response from the API");
-  }
-
-  return body.data.blog;
 }
 
 export default function Home() {
